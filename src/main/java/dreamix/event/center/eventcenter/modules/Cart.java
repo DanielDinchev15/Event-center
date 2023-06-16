@@ -6,18 +6,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tickets {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_id", nullable = false)
-    private Long ticket_id;
-    private int price;
-    private int seatNumber;
-    private String payment;
+    @Column(name = "cart_id", nullable = false)
+    private Long cartId;
 
 
 }
