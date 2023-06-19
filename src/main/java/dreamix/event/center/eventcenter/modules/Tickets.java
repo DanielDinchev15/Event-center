@@ -5,19 +5,49 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tickets {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_id", nullable = false)
-    private Long ticket_id;
+@Table(name = "tickets")
+public class Tickets extends IdSubClass{
+
     private int price;
     private int seatNumber;
     private String payment;
+    private String boughtAt;
 
+    @ManyToOne
+    @JoinColumn(name = "app_user_id", unique = true)
+    private AppUser appUser;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id", unique = true)
+    private Event event;
+
+    @ManyToMany
+    @JoinTable(
+            name = "cart_ticket",
+            joinColumns = @JoinColumn(name = "tickets_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_id"))
+            Set<Cart> cart_ticket;
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
 
 }

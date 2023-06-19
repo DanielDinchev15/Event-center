@@ -5,17 +5,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id", nullable = false)
-    private Long cartId;
+@Table(name = "carts")
+public class Cart extends IdSubClass{
 
 
+    @ManyToMany(mappedBy = "cart_ticket")
+    Set<Tickets> tickets;
+
+    @OneToOne
+    @JoinColumn(name = "appUser_id", referencedColumnName = "id", unique = true)
+    private AppUser appUser;
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
 }

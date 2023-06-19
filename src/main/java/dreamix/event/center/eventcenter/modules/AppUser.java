@@ -5,17 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import java.util.Set;
+
 @Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "app_users")
+public class AppUser extends IdSubClass {
+
     private String username;
     private String email;
     private String password;
 
+    @OneToMany(mappedBy="appUser")
+    private Set<Tickets> tickets;
+
+    @OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL)
+    private Cart cart;
 }

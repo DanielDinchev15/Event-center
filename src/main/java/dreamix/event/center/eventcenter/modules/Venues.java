@@ -5,17 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Venues {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "venue_id", nullable = false)
-    private Long venueId;
+@Table(name = "venues")
+public class Venues extends IdSubClass {
+
     private String venueType;
-
-
+    @OneToMany(mappedBy = "venues")
+    private Set<Event> events;
 }
