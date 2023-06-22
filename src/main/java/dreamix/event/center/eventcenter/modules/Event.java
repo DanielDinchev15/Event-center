@@ -30,6 +30,9 @@ public class Event extends IdSubClass{
     @JoinColumn(name = "category_id", unique = true)
     private Categories category;
 
+
+
+
     public Categories getCategory() {
         return category;
     }
