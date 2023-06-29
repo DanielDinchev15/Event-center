@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class EventRepo extends ParentRepo<Event> {
-    public EventRepo() {
-        type = "event";
+    @Override
+    public Class<Event> getEntityName() {
+        return Event.class;
     }
 }

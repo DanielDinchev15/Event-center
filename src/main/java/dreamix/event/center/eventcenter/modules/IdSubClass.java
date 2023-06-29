@@ -7,7 +7,7 @@ import javax.persistence.*;
 @MappedSuperclass
 public class IdSubClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
 }

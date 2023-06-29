@@ -27,13 +27,8 @@ public class Tickets extends IdSubClass{
     @JoinColumn(name = "event_id", unique = true)
     private Event event;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_ticket",
-            joinColumns = @JoinColumn(name = "tickets_id"),
-            inverseJoinColumns = @JoinColumn(name = "cart_id"))
-            Set<Cart> cart_ticket;
-
+    @OneToMany(mappedBy = "tickets", cascade = CascadeType.ALL)
+    private Set<CartTickets> cartTickets;
     public Event getEvent() {
         return event;
     }

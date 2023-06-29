@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TicketRepo extends ParentRepo<Tickets> {
-    public TicketRepo() {
-        type = "tickets";
+    @Override
+    public Class<Tickets> getEntityName() {
+        return Tickets.class;
     }
+
 }

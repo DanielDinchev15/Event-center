@@ -16,8 +16,8 @@ import java.util.Set;
 public class Cart extends IdSubClass{
 
 
-    @ManyToMany(mappedBy = "cart_ticket")
-    Set<Tickets> tickets;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    Set<CartTickets> cartTickets;
 
     @OneToOne
     @JoinColumn(name = "appUser_id", referencedColumnName = "id", unique = true)
