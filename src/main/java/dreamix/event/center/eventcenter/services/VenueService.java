@@ -1,34 +1,36 @@
 package dreamix.event.center.eventcenter.services;
 
+
 import dreamix.event.center.eventcenter.modules.Venues;
-import dreamix.event.center.eventcenter.repository.VenueRepo;
+import dreamix.event.center.eventcenter.repository.VenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VenueService {
-    @Autowired VenueRepo venueRepo;
+    @Autowired
+    VenueRepository venueRepository;
 
-
-    public void getVenue() {
-        for (Venues venues : venueRepo.findAll()) {
-            System.out.println(venues.getVenueType());
-        }
-    }
-    public void getVenue(Long id){
-        Venues venues =  venueRepo.findById(id);
-        System.out.println(venues.getVenueType());
+    public List<Venues> getVenue() {
+        return venueRepository.findAll();
     }
 
-    public void createVenue(Venues venues){
-        venueRepo.create(venues);
+    public Venues getVenuesById(Long id) {
+        return venueRepository.findById(id);
     }
-    public void updateVenue(Venues existingVenue) {
-        venueRepo.update(existingVenue);
-        getVenue();
+
+    public Venues createVenue(Venues venues) {
+        return venueRepository.create(venues);
     }
-    public void deleteVenue(Long id){
-        venueRepo.delete(id);
+
+    public Venues updateVenue(Venues existingVenue) {
+        return venueRepository.update(existingVenue);
+    }
+
+    public void deleteVenue(Long id) {
+        venueRepository.delete(id);
         getVenue();
     }
 }

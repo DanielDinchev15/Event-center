@@ -1,34 +1,32 @@
 package dreamix.event.center.eventcenter.services;
 
 import dreamix.event.center.eventcenter.modules.AppUser;
-import dreamix.event.center.eventcenter.repository.AppUserRepo;
+import dreamix.event.center.eventcenter.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AppUserService {
     @Autowired
-    AppUserRepo appUserRepo;
+    AppUserRepository appUserRepository;
 
-    public void getAppUser() {
-        for (AppUser appUser : appUserRepo.findAll()) {
-            System.out.println(appUser.getUsername());
-        }
+    public List<AppUser> getAppUser() {
+        return appUserRepository.findAll();
     }
-    public void getAppUserById(Long id){
-        AppUser appUser =  appUserRepo.findById(id);
-        System.out.println(appUser.getUsername());
+    public AppUser getAppUserById(Long id){
+        return appUserRepository.findById(id);
     }
 
-    public void createAppUser(AppUser appUser){
-        appUserRepo.create(appUser);
+    public AppUser createAppUser(AppUser appUser){
+        return appUserRepository.create(appUser);
     }
-    public void updateAppUser(AppUser existingAppUser) {
-        appUserRepo.update(existingAppUser);
-        getAppUser();
+    public AppUser updateAppUser(AppUser existingAppUser) {
+        return appUserRepository.update(existingAppUser);
     }
     public void deleteAppUser(Long id){
-        appUserRepo.delete(id);
+        appUserRepository.delete(id);
         getAppUser();
     }
 }

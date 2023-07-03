@@ -1,5 +1,6 @@
 package dreamix.event.center.eventcenter.repository;
 
+import dreamix.event.center.eventcenter.modules.Event;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public abstract class ParentRepo<T> {
+public abstract class ParentRepository<T> {
     @PersistenceContext
     private EntityManager entityManager;
     public abstract  Class<T> getEntityName();
@@ -19,13 +20,14 @@ public abstract class ParentRepo<T> {
         return entityManager.find(getEntityName(), id);
     }
     @Transactional
-    public void create(T object){
+    public T create(T object){
         try {
             entityManager.persist(object);
         }
         catch (Exception e){
             e.printStackTrace();
         }
+        return object;
     }
     @Transactional
     public void delete(Long id) {
@@ -40,11 +42,12 @@ public abstract class ParentRepo<T> {
         }
     }
     @Transactional
-    public void update(T object) {
+    public T update(T object) {
         try {
             entityManager.merge(object);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return object;
     }
 }

@@ -1,38 +1,35 @@
 package dreamix.event.center.eventcenter.services;
 
+
 import dreamix.event.center.eventcenter.modules.Tickets;
-import dreamix.event.center.eventcenter.repository.TicketRepo;
+import dreamix.event.center.eventcenter.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
 public class TicketsService {
 
     @Autowired
-    private TicketRepo ticketRepo;
+    TicketRepository ticketRepository;
 
+    public List<Tickets> getTickets() {
+        return ticketRepository.findAll();
+    }
+    public Tickets getTicketById(Long id){
+        return ticketRepository.findById(id);
+    }
 
-    public void getTickets() {
-        for (Tickets tickets : ticketRepo.findAll()) {
-            System.out.println(tickets.getPrice());
-        }
+    public Tickets createTicket(Tickets tickets){
+        return ticketRepository.create(tickets);
     }
-    public void getTicketsById(Long id){
-            Tickets tickets = ticketRepo.findById(id);
-            System.out.println(tickets.getBoughtAt());
-        }
-
-    public void createTickets(Tickets ticket){
-        ticketRepo.create(ticket);
+    public Tickets updateTicket(Tickets existingTicket) {
+        return ticketRepository.update(existingTicket);
     }
-    public void updateTickets(Tickets existingTicket) {
-        ticketRepo.update(existingTicket);
-        getTickets();
-    }
-    public void deleteTickets(Long id){
-        ticketRepo.delete(id);
+    public void deleteTicket(Long id){
+        ticketRepository.delete(id);
         getTickets();
     }
 }

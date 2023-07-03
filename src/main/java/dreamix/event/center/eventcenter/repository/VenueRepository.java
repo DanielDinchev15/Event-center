@@ -4,7 +4,7 @@ import dreamix.event.center.eventcenter.modules.Venues;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class VenueRepo extends ParentRepo<Venues>{
+public class VenueRepository extends ParentRepository<Venues> {
 
     @Override
     public Class<Venues> getEntityName() {

@@ -1,34 +1,36 @@
 package dreamix.event.center.eventcenter.services;
 
 import dreamix.event.center.eventcenter.modules.Event;
-import dreamix.event.center.eventcenter.repository.EventRepo;
+import dreamix.event.center.eventcenter.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EventService {
     @Autowired
-    EventRepo eventRepo;
+    EventRepository eventRepository;
 
-    public void getEvent() {
-        for (Event event : eventRepo.findAll()) {
-            System.out.println(event.getEventName());
-        }
-    }
-    public void getEventById(Long id){
-        Event event =  eventRepo.findById(id);
-        System.out.println(event.getEventName());
+    public List<Event> getEvent() {
+        return eventRepository.findAll();
     }
 
-    public void createEvent(Event event){
-        eventRepo.create(event);
+    public Event getEventById(Long id) {
+        return eventRepository.findById(id);
     }
-    public void updateEvent(Event existingEvent) {
-        eventRepo.update(existingEvent);
+
+    public Event createEvent(Event event) {
+        return eventRepository.create(event);
+    }
+
+    public Event updateEvent(Event existingEvent) {
+        return eventRepository.update(existingEvent);
+    }
+
+    public void deleteEvent(Long id) {
+        eventRepository.delete(id);
         getEvent();
     }
-    public void deleteEvent(Long id){
-        eventRepo.delete(id);
-        getEvent();
-    }
+
 }

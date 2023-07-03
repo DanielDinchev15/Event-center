@@ -1,5 +1,7 @@
 package dreamix.event.center.eventcenter.modules;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import java.util.Set;
 @Table(name = "categories")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Categories extends IdSubClass{
+public class Categories extends IdSubClass {
 
     private String categoryName;
 
@@ -23,6 +25,7 @@ public class Categories extends IdSubClass{
 
     @OneToMany(mappedBy = "parentCategory", orphanRemoval = true)
     private List<Categories> subcategories;
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Event> events;
 }
