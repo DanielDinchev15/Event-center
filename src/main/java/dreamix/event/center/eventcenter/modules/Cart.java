@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "carts")
-public class Cart extends IdSubClass{
+public class Cart extends IdSubClass {
 
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)

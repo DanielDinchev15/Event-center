@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tickets")
-public class Tickets extends IdSubClass{
+public class Tickets extends IdSubClass {
 
     private int price;
     private int seatNumber;
@@ -29,6 +29,7 @@ public class Tickets extends IdSubClass{
 
     @OneToMany(mappedBy = "tickets", cascade = CascadeType.ALL)
     private Set<CartTickets> cartTickets;
+
     public Event getEvent() {
         return event;
     }

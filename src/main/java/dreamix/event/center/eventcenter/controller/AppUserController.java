@@ -1,11 +1,14 @@
 package dreamix.event.center.eventcenter.controller;
 
+import dreamix.event.center.eventcenter.converter.AppUserConverter;
+import dreamix.event.center.eventcenter.dto.AppUserDTO;
 import dreamix.event.center.eventcenter.modules.AppUser;
 import dreamix.event.center.eventcenter.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/appUser")
@@ -14,25 +17,29 @@ public class AppUserController {
 
     @Autowired
     private AppUserService appUserService;
+    @Autowired
+    private AppUserConverter appUserConverter;
 
     @GetMapping("/all")
-    public List<AppUser> getAllAppUser() {
-        return appUserService.getAppUser();
+    public List<AppUserDTO> getAllAppUser() {
+        return appUserService.getAppUser().stream().map(appUser -> appUserConverter.convertEntityToDto(appUser)).collect(Collectors.toList());
     }
-
-    @GetMapping("/appUser/{id}")
-    public AppUser getAppUser(@PathVariable Long id) {
-        return appUserService.getAppUserById(id);
+    @GetMapping("/{id}")
+    public AppUserDTO getAppUser(@PathVariable Long id) {
+        if(appUserService.getAppUserById(id) == null){
+            return null;
+        }
+        return appUserConverter.convertEntityToDto(appUserService.getAppUserById(id));
     }
 
     @PostMapping("/add")
-    public AppUser createAppUser(@RequestBody AppUser appUser) {
-        return appUserService.createAppUser(appUser);
+    public AppUserDTO createAppUser(@RequestBody AppUserDTO appUserDTO) {
+        return appUserConverter.convertEntityToDto(appUserService.createAppUser(appUserConverter.convertDtoToEntity(appUserDTO)));
     }
 
-    @PutMapping("/update/")
-    public AppUser updateAppUser(@RequestBody AppUser existingAppUser) {
-        return appUserService.updateAppUser(existingAppUser);
+    @PutMapping("/update")
+    public AppUserDTO updateAppUser(@RequestBody AppUserDTO appUserDTO) {
+        return appUserConverter.convertEntityToDto(appUserService.updateAppUser(appUserConverter.convertDtoToEntity(appUserDTO)));
     }
 
     @DeleteMapping("/delete/{id}")

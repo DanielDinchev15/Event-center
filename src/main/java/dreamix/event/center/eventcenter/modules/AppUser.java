@@ -18,7 +18,7 @@ public class AppUser extends IdSubClass {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy="appUser")
+    @OneToMany(mappedBy = "appUser")
     private Set<Tickets> tickets;
 
     @OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL)

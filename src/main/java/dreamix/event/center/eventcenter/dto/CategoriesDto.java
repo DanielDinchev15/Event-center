@@ -5,12 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class EventDto {
+@AllArgsConstructor
+public class CategoriesDto {
     private Long id;
-    private String eventName;
-    private String date;
-    private String location;
-
+    private String categoryName;
 }

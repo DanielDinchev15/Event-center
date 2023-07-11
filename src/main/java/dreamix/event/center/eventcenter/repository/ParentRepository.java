@@ -1,8 +1,6 @@
 package dreamix.event.center.eventcenter.repository;
 
-import dreamix.event.center.eventcenter.modules.Event;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -12,35 +10,38 @@ import java.util.List;
 public abstract class ParentRepository<T> {
     @PersistenceContext
     private EntityManager entityManager;
-    public abstract  Class<T> getEntityName();
-    public List<T> findAll(){
-        return entityManager.createQuery("from " + getEntityName().getSimpleName()).getResultList();
+    public abstract Class<T> getEntityClass();
+
+
+    public List<T> findAll() {
+        return entityManager.createQuery("from " + getEntityClass().getSimpleName()).getResultList();
     }
-    public T findById(Long id){
-        return entityManager.find(getEntityName(), id);
+
+    public T findById(Long id) {
+        return entityManager.find(getEntityClass(), id);
     }
+
     @Transactional
-    public T create(T object){
+    public T create(T entity) {
         try {
-            entityManager.persist(object);
-        }
-        catch (Exception e){
+            entityManager.persist(entity);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return object;
+        return entity;
     }
+
     @Transactional
     public void delete(Long id) {
-        try{
-            entityManager.createQuery("delete from :type where id = :id")
-                    .setParameter("type", getEntityName().getSimpleName())
+        try {
+            entityManager.createQuery("delete from " + getEntityClass().getSimpleName() + " where id = :id")
                     .setParameter("id", id)
                     .executeUpdate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Transactional
     public T update(T object) {
         try {

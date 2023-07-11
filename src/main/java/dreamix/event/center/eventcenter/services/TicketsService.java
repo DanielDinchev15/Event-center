@@ -1,6 +1,5 @@
 package dreamix.event.center.eventcenter.services;
 
-
 import dreamix.event.center.eventcenter.modules.Tickets;
 import dreamix.event.center.eventcenter.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;

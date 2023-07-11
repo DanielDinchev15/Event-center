@@ -16,27 +16,27 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/all")
-    public List<Event> getAllEvent(){
+    public List<Event> getAllEvent() {
         return eventService.getEvent();
     }
 
     @GetMapping("/event/{id}")
-    public Event getEvent(@PathVariable Long id){
-            return eventService.getEventById(id);
+    public Event getEvent(@PathVariable Long id) {
+        return eventService.getEventById(id);
     }
 
     @PostMapping("/add")
-    public Event createEvent(@RequestBody Event event){
+    public Event createEvent(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
     @PutMapping("/update/")
-    public Event updateEvent(@RequestBody Event existingEvent){
+    public Event updateEvent(@RequestBody Event existingEvent) {
         return eventService.updateEvent(existingEvent);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteEvent(@PathVariable Long id){
+    public void deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
     }
 }
