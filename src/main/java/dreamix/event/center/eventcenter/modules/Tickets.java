@@ -3,9 +3,9 @@ package dreamix.event.center.eventcenter.modules;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -28,7 +28,7 @@ public class Tickets extends IdSubClass {
     private Event event;
 
     @OneToMany(mappedBy = "tickets", cascade = CascadeType.ALL)
-    private Set<CartTickets> cartTickets;
+    private List<CartTickets> cartTickets;
 
     public Event getEvent() {
         return event;

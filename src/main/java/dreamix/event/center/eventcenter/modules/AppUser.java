@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,7 +19,7 @@ public class AppUser extends IdSubClass {
     private String password;
 
     @OneToMany(mappedBy = "appUser")
-    private Set<Tickets> tickets;
+    private List<Tickets> tickets;
 
     @OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL)
     private Cart cart;

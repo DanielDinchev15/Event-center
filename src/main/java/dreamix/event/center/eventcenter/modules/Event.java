@@ -1,13 +1,11 @@
 package dreamix.event.center.eventcenter.modules;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,9 +18,9 @@ public class Event extends IdSubClass {
     private String date;
     private String location;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "event")
-    private Set<Tickets> tickets;
+    private List<Tickets> tickets;
 
     @ManyToOne
     @JoinColumn(name = "venues_id", unique = true)

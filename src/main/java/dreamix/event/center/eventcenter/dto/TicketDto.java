@@ -13,4 +13,6 @@ public class TicketDto {
     private int seatNumber;
     private String payment;
     private String boughtAt;
+    private EventDto event;
+
 }

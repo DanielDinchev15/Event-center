@@ -1,12 +1,13 @@
 package dreamix.event.center.eventcenter.modules;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -17,7 +18,7 @@ public class Venues extends IdSubClass {
 
     private String venueType;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "venues")
-    private Set<Event> events;
+    private List<Event> events;
 }

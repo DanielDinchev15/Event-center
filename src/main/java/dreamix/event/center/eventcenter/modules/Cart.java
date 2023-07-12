@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -17,7 +18,7 @@ public class Cart extends IdSubClass {
 
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    Set<CartTickets> cartTickets;
+    List<CartTickets> cartTickets;
 
     @OneToOne
     @JoinColumn(name = "appUser_id", referencedColumnName = "id", unique = true)
