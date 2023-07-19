@@ -1,9 +1,11 @@
 package dreamix.event.center.eventcenter.repository;
 
+import dreamix.event.center.eventcenter.modules.IdSubClass;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Repository
@@ -33,15 +35,15 @@ public abstract class ParentRepository<T> {
 
     @Transactional
     public void delete(Long id) {
+        String jpql = " where id = :id";
         try {
-            entityManager.createQuery("delete from " + getEntityClass().getSimpleName() + " where id = :id")
+            entityManager.createQuery("delete from " + getEntityClass().getSimpleName() + jpql)
                     .setParameter("id", id)
                     .executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     @Transactional
     public T update(T object) {
         try {
@@ -51,4 +53,5 @@ public abstract class ParentRepository<T> {
         }
         return object;
     }
+
 }

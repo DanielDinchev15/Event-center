@@ -12,6 +12,8 @@ public class CartConverter {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private AppUserConverter appUserConverter;
     public CartDto convertEntityToDto(Cart cart) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(cart, CartDto.class);

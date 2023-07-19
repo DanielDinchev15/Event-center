@@ -1,11 +1,12 @@
 package dreamix.event.center.eventcenter.controller;
 
-import dreamix.event.center.eventcenter.modules.Event;
+import dreamix.event.center.eventcenter.converter.EventConverter;
+import dreamix.event.center.eventcenter.dto.EventDto;
 import dreamix.event.center.eventcenter.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/events")
@@ -14,25 +15,31 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+    @Autowired
+    private EventConverter eventConverter;
 
     @GetMapping("/all")
-    public List<Event> getAllEvent() {
-        return eventService.getEvent();
+    public List<EventDto> getAllEvent() {
+        return eventService.getEvent().stream().map(event -> eventConverter.convertEntityToDto(event)).collect(Collectors.toList());
     }
 
     @GetMapping("/event/{id}")
-    public Event getEvent(@PathVariable Long id) {
-        return eventService.getEventById(id);
+    public EventDto getEvent(@PathVariable Long id) {
+        if(eventService.getEventById(id) == null){
+            return null;
+        }
+        return eventConverter.convertEntityToDto(eventService.getEventById(id));
     }
 
+
     @PostMapping("/add")
-    public Event createEvent(@RequestBody Event event) {
-        return eventService.createEvent(event);
+    public EventDto createEvent(@RequestBody EventDto eventDto) {
+        return eventConverter.convertEntityToDto(eventService.createEvent(eventConverter.convertDtoToEntity(eventDto)));
     }
 
     @PutMapping("/update/")
-    public Event updateEvent(@RequestBody Event existingEvent) {
-        return eventService.updateEvent(existingEvent);
+    public EventDto updateEvent(@RequestBody EventDto eventDto) {
+        return eventConverter.convertEntityToDto(eventService.updateEvent(eventConverter.convertDtoToEntity(eventDto)));
     }
 
     @DeleteMapping("/delete/{id}")

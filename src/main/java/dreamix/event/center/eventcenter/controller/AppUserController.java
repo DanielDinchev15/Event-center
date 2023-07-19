@@ -2,7 +2,6 @@ package dreamix.event.center.eventcenter.controller;
 
 import dreamix.event.center.eventcenter.converter.AppUserConverter;
 import dreamix.event.center.eventcenter.dto.AppUserDTO;
-import dreamix.event.center.eventcenter.modules.AppUser;
 import dreamix.event.center.eventcenter.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,6 @@ public class AppUserController {
         }
         return appUserConverter.convertEntityToDto(appUserService.getAppUserById(id));
     }
-
     @PostMapping("/add")
     public AppUserDTO createAppUser(@RequestBody AppUserDTO appUserDTO) {
         return appUserConverter.convertEntityToDto(appUserService.createAppUser(appUserConverter.convertDtoToEntity(appUserDTO)));

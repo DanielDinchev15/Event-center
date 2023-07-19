@@ -1,8 +1,6 @@
 package dreamix.event.center.eventcenter.converter;
 
-import dreamix.event.center.eventcenter.dto.CartDto;
 import dreamix.event.center.eventcenter.dto.TicketDto;
-import dreamix.event.center.eventcenter.modules.Cart;
 import dreamix.event.center.eventcenter.modules.Tickets;
 import dreamix.event.center.eventcenter.services.TicketsService;
 import org.modelmapper.ModelMapper;

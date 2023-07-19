@@ -1,8 +1,6 @@
 package dreamix.event.center.eventcenter.converter;
 
-import dreamix.event.center.eventcenter.dto.CartDto;
 import dreamix.event.center.eventcenter.dto.EventDto;
-import dreamix.event.center.eventcenter.modules.Cart;
 import dreamix.event.center.eventcenter.modules.Event;
 import dreamix.event.center.eventcenter.services.EventService;
 import org.modelmapper.ModelMapper;
@@ -21,6 +19,20 @@ public class EventConverter {
 
     public Event convertDtoToEntity(EventDto eventDto) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(eventDto, Event.class);
+        Event map = modelMapper.map(eventDto, Event.class);
+        Event existingEvent = eventService.getEventById(eventDto.getId());
+        if(eventDto.getId() != null) {
+
+            if (eventDto.getEventName() == null) {
+                map.setEventName(existingEvent.getEventName());
+            }
+            if (eventDto.getLocation() == null) {
+                map.setLocation(existingEvent.getLocation());
+            }
+            if (eventDto.getDate() == null) {
+                map.setDate(existingEvent.getDate());
+            }
+        }
+        return map;
     }
 }
